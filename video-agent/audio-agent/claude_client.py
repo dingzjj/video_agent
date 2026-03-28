@@ -1,20 +1,18 @@
-"""LLM client — storyboard generation and voiceover via Azure OpenAI."""
+"""LLM client — voiceover script generation and refinement via Azure OpenAI."""
 
 from __future__ import annotations
 import json
 import os
 from pathlib import Path
-from typing import Optional
 
 from openai import AzureOpenAI
 
-from .schemas import Storyboard, VoiceoverScript
+from schemas import Storyboard, VoiceoverScript
 
 _PROMPTS = Path(__file__).parent / "prompts"
 _STORYBOARD_SYSTEM = (_PROMPTS / "storyboard_prompt.txt").read_text(encoding="utf-8")
 _VOICEOVER_SYSTEM  = (_PROMPTS / "voiceover_prompt.txt").read_text(encoding="utf-8")
 
-# Azure OpenAI config (read from env; fallback to empty string)
 AZURE_ENDPOINT    = os.environ.get("AZURE_OPENAI_ENDPOINT",    "")
 AZURE_API_KEY     = os.environ.get("AZURE_OPENAI_API_KEY",     "")
 AZURE_API_VERSION = os.environ.get("AZURE_OPENAI_API_VERSION", "")
@@ -30,7 +28,6 @@ def _client() -> AzureOpenAI:
 
 
 def _chat_json(system: str, messages: list[dict]) -> dict:
-    """Call Azure OpenAI and return parsed JSON dict."""
     resp = _client().chat.completions.create(
         model=AZURE_DEPLOYMENT,
         messages=[{"role": "system", "content": system}] + messages,
@@ -45,59 +42,14 @@ def _chat_json(system: str, messages: list[dict]) -> dict:
     return json.loads(raw)
 
 
-# ── Storyboard generation ─────────────────────────────────────────────────────
-
-def generate_storyboard(
-    concept: str,
-    suggestion: Optional[str] = None,
-    existing_storyboard: Optional["Storyboard"] = None,
-) -> Storyboard:
-    """Generate (or refine) a storyboard for the given concept.
-
-    When ``suggestion`` + ``existing_storyboard`` are provided the LLM receives
-    the current storyboard as context and refines it, rather than starting fresh.
-    """
-    print(f"  [LLM] Generating storyboard [{AZURE_DEPLOYMENT}]...", flush=True)
-
-    if suggestion and existing_storyboard:
-        existing_json = json.dumps(
-            json.loads(existing_storyboard.model_dump_json(by_alias=True)),
-            ensure_ascii=False,
-            indent=2,
-        )
-        messages: list[dict] = [
-            {"role": "user",      "content": concept},
-            {"role": "assistant", "content": existing_json},
-            {
-                "role": "user",
-                "content": (
-                    "USER SUGGESTION — please refine the storyboard above:\n\n"
-                    + suggestion
-                    + "\n\nKeep everything that works well. "
-                    "Return a new, complete storyboard JSON — not a summary or explanation."
-                ),
-            },
-        ]
-    else:
-        messages = [{"role": "user", "content": concept}]
-
-    data = _chat_json(_STORYBOARD_SYSTEM, messages)
-    return Storyboard.model_validate(data)
-
-
-# ── Voiceover script ─────────────────────────────────────────────────────────
-
 def generate_voiceover_script(storyboard: Storyboard) -> VoiceoverScript:
-    """Generate narration text for every scene in the storyboard."""
     print(f"  [LLM] Generating voiceover script [{AZURE_DEPLOYMENT}]...", flush=True)
-
     storyboard_json = json.dumps(
         json.loads(storyboard.model_dump_json(by_alias=True)),
         ensure_ascii=False,
         indent=2,
     )
-    messages = [{"role": "user", "content": storyboard_json}]
-    data = _chat_json(_VOICEOVER_SYSTEM, messages)
+    data = _chat_json(_VOICEOVER_SYSTEM, [{"role": "user", "content": storyboard_json}])
     return VoiceoverScript.model_validate(data)
 
 
@@ -106,16 +58,13 @@ def refine_voiceover_script(
     existing_script: VoiceoverScript,
     suggestion: str,
 ) -> VoiceoverScript:
-    """Refine an existing voiceover script based on a user suggestion."""
     print(f"  [LLM] Refining voiceover script [{AZURE_DEPLOYMENT}]...", flush=True)
-
     storyboard_json = json.dumps(
         json.loads(storyboard.model_dump_json(by_alias=True)),
         ensure_ascii=False,
         indent=2,
     )
     existing_json = json.dumps(existing_script.model_dump(), ensure_ascii=False, indent=2)
-
     messages = [
         {"role": "user",      "content": storyboard_json},
         {"role": "assistant", "content": existing_json},
@@ -134,4 +83,3 @@ def refine_voiceover_script(
     ]
     data = _chat_json(_VOICEOVER_SYSTEM, messages)
     return VoiceoverScript.model_validate(data)
-

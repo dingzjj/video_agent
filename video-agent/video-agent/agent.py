@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 from pathlib import Path
-from typing import Optional
 
-from .base import BaseAgent
-from orchestrator.renderer import render_video
-from orchestrator import tts_client
-from orchestrator.task_manager import Task, update_stage
+from renderer import render_video
+import tts_client
+from task_manager import Task, update_stage
 
 
-class VideoRenderAgent(BaseAgent):
+class VideoRenderAgent:
     name = "VideoRenderAgent"
+
+    def log(self, msg: str) -> None:
+        print(f"  [{self.name}] {msg}", flush=True)
 
     def run(
         self,
@@ -21,7 +22,7 @@ class VideoRenderAgent(BaseAgent):
         """
         Render the task's storyboard to MP4, then merge voiceover if available.
 
-        The storyboard must already be synced to video/public/ (ScriptAgent does this).
+        The storyboard must already exist in the task folder (run script-agent first).
         Audio is read from task.merged_audio_path when merge_audio=True and the file exists.
 
         Returns:
@@ -32,7 +33,7 @@ class VideoRenderAgent(BaseAgent):
         """
         if not task.storyboard_path.exists():
             raise FileNotFoundError(
-                f"No storyboard in task folder {task.folder}. Run `script` first."
+                f"No storyboard in task folder {task.folder}. Run script-agent first."
             )
 
         update_stage(task, "video", "running")

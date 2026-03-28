@@ -1,0 +1,3 @@
+python-dotenv>=1.0.0
+# Node.js + Remotion required for rendering (npm install in ../video/)
+# ffmpeg required for audio merging (system dependency)

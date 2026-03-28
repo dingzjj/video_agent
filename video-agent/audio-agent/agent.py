@@ -1,19 +1,21 @@
-"""VoiceoverAgent — generate narration via LLM + synthesize audio via edge-tts."""
+"""VoiceoverAgent — generate narration via LLM + synthesize audio via ElevenLabs."""
 
 from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Optional
 
-from .base import BaseAgent
-from orchestrator.claude_client import generate_voiceover_script, refine_voiceover_script
-from orchestrator.schemas import Storyboard, VoiceoverScript
-from orchestrator import tts_client
-from orchestrator.task_manager import Task, update_stage, mark_stale_from
+from claude_client import generate_voiceover_script, refine_voiceover_script
+from schemas import Storyboard, VoiceoverScript
+import tts_client
+from task_manager import Task, update_stage, mark_stale_from
 
 
-class VoiceoverAgent(BaseAgent):
+class VoiceoverAgent:
     name = "VoiceoverAgent"
+
+    def log(self, msg: str) -> None:
+        print(f"  [{self.name}] {msg}", flush=True)
 
     def run(
         self,
@@ -35,14 +37,14 @@ class VoiceoverAgent(BaseAgent):
             }
         """
         if not tts_client.is_available():
-            self.log("edge-tts not installed — run: pip install edge-tts")
+            self.log("ElevenLabs not available — set ELEVENLABS_API_KEY in .env")
             return {"voiceover_script": None, "audio_files": [], "merged_path": None, "success": False}
 
         update_stage(task, "voiceover", "running")
 
         # ── 1. Load storyboard ─────────────────────────────────────────────
         if not task.storyboard_path.exists():
-            self.log(f"No storyboard found in task folder. Run `script` first.")
+            self.log("No storyboard found in task folder. Run script-agent first.")
             update_stage(task, "voiceover", "failed", error="no storyboard")
             return {"voiceover_script": None, "audio_files": [], "merged_path": None, "success": False}
 
@@ -70,7 +72,6 @@ class VoiceoverAgent(BaseAgent):
         narration_map = {n.scene_id: n.text for n in voiceover_script.scenes}
         self.log(f"Narration ready: {len(voiceover_script.scenes)} scenes, lang={voiceover_script.language}")
 
-        # Save narration script to task folder
         task.voiceover_script_path.write_text(
             json.dumps(voiceover_script.model_dump(), ensure_ascii=False, indent=2),
             encoding="utf-8",

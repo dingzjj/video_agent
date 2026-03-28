@@ -6,17 +6,19 @@ import shutil
 from pathlib import Path
 from typing import Optional
 
-from .base import BaseAgent
-from orchestrator.claude_client import generate_storyboard
-from orchestrator.asset_retriever import fetch_all_images
-from orchestrator.schemas import Storyboard
-from orchestrator.task_manager import Task, update_stage, mark_stale_from, VIDEO_PUBLIC
+from claude_client import generate_storyboard
+from asset_retriever import fetch_all_images
+from schemas import Storyboard
+from task_manager import Task, update_stage, mark_stale_from, VIDEO_PUBLIC
 
 WORKSPACE = Path(__file__).parent.parent / "workspace"
 
 
-class ScriptAgent(BaseAgent):
+class ScriptAgent:
     name = "ScriptAgent"
+
+    def log(self, msg: str) -> None:
+        print(f"  [{self.name}] {msg}", flush=True)
 
     def run(
         self,
@@ -38,7 +40,6 @@ class ScriptAgent(BaseAgent):
         """
         update_stage(task, "script", "running")
 
-        # Seed suggestion mode with the task's current storyboard (if any)
         existing: Optional[Storyboard] = None
         if suggestion and task.storyboard_path.exists():
             try:
