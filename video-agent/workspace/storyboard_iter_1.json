@@ -1,0 +1,194 @@
+{
+  "title": "量子纠缠的原理",
+  "total_duration_seconds": 57.0,
+  "fps": 30,
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "theme": {
+    "primary_color": "#3A86FF",
+    "accent_color": "#FF6B35",
+    "background_color": "#0A0F1E",
+    "font_family": "Inter",
+    "text_color": "#FFFFFF"
+  },
+  "scenes": [
+    {
+      "id": "scene_0",
+      "type": "title",
+      "duration_seconds": 4.0,
+      "animation": "fade_zoom_in",
+      "image_query": "quantum particles abstract visualization",
+      "asset_path": "assets/scene_0_quantum_particles_abstract_vis.jpg",
+      "title": "量子纠缠的原理",
+      "subtitle": "两个粒子，为什么能跨越宇宙瞬间“同步”？",
+      "heading": null,
+      "body": null,
+      "bullets": null,
+      "caption": null,
+      "message": null,
+      "nodes": null,
+      "edges": null,
+      "steps": null
+    },
+    {
+      "id": "scene_1",
+      "type": "bullet",
+      "duration_seconds": 10.0,
+      "animation": "stagger_slide_up",
+      "image_query": null,
+      "asset_path": null,
+      "title": null,
+      "subtitle": null,
+      "heading": "什么是量子纠缠？",
+      "body": null,
+      "bullets": [
+        "两个或多个粒子的状态被整体描述，无法独立分开",
+        "测量其中一个粒子，立刻确定另一个的状态",
+        "这种关联与距离无关，看似“瞬时发生”"
+      ],
+      "caption": null,
+      "message": null,
+      "nodes": null,
+      "edges": null,
+      "steps": null
+    },
+    {
+      "id": "scene_2",
+      "type": "split",
+      "duration_seconds": 10.0,
+      "animation": "slide_in_from_left",
+      "image_query": "pair of gloves analogy illustration",
+      "asset_path": "assets/scene_2_pair_of_gloves_analogy_illustr.jpg",
+      "title": null,
+      "subtitle": null,
+      "heading": "直观理解",
+      "body": "想象一双手套被分装进两个盒子。你打开一个发现是左手套，就立刻知道另一个是右手套。量子纠缠类似，但不同之处在于：在打开之前，手套的“左右”并未被确定。",
+      "bullets": null,
+      "caption": null,
+      "message": null,
+      "nodes": null,
+      "edges": null,
+      "steps": null
+    },
+    {
+      "id": "scene_3",
+      "type": "diagram",
+      "duration_seconds": 12.0,
+      "animation": "draw_arrows",
+      "image_query": null,
+      "asset_path": null,
+      "title": null,
+      "subtitle": null,
+      "heading": "纠缠是如何产生的",
+      "body": null,
+      "bullets": null,
+      "caption": null,
+      "message": null,
+      "nodes": [
+        {
+          "id": "a",
+          "label": "共同产生的粒子",
+          "x": 0.15,
+          "y": 0.5
+        },
+        {
+          "id": "b",
+          "label": "共享量子状态",
+          "x": 0.5,
+          "y": 0.3
+        },
+        {
+          "id": "c",
+          "label": "远距离分离",
+          "x": 0.85,
+          "y": 0.5
+        }
+      ],
+      "edges": [
+        {
+          "from": "a",
+          "to": "b",
+          "label": "形成"
+        },
+        {
+          "from": "b",
+          "to": "c",
+          "label": "保持关联"
+        }
+      ],
+      "steps": null
+    },
+    {
+      "id": "scene_4",
+      "type": "image",
+      "duration_seconds": 5.0,
+      "animation": "ken_burns",
+      "image_query": "quantum entanglement experiment photons",
+      "asset_path": "assets/scene_4_quantum_entanglement_experimen.jpg",
+      "title": null,
+      "subtitle": null,
+      "heading": null,
+      "body": null,
+      "bullets": null,
+      "caption": "实验已证实：纠缠粒子即使相距上百公里，关联依然存在。",
+      "message": null,
+      "nodes": null,
+      "edges": null,
+      "steps": null
+    },
+    {
+      "id": "scene_5",
+      "type": "step",
+      "duration_seconds": 12.0,
+      "animation": "slide_in_steps",
+      "image_query": null,
+      "asset_path": null,
+      "title": null,
+      "subtitle": null,
+      "heading": "测量时发生了什么",
+      "body": null,
+      "bullets": null,
+      "caption": null,
+      "message": null,
+      "nodes": null,
+      "edges": null,
+      "steps": [
+        {
+          "number": 1,
+          "title": "处于叠加态",
+          "description": "在测量前，每个粒子同时具有多种可能状态。"
+        },
+        {
+          "number": 2,
+          "title": "进行测量",
+          "description": "测量迫使系统选择一个确定结果。"
+        },
+        {
+          "number": 3,
+          "title": "状态同步确定",
+          "description": "另一个粒子的状态被同时确定，体现纠缠关联。"
+        }
+      ]
+    },
+    {
+      "id": "scene_6",
+      "type": "outro",
+      "duration_seconds": 4.0,
+      "animation": "fade_in_center",
+      "image_query": null,
+      "asset_path": null,
+      "title": null,
+      "subtitle": null,
+      "heading": null,
+      "body": null,
+      "bullets": null,
+      "caption": null,
+      "message": "量子纠缠挑战了我们对空间和因果的直觉，也正是量子通信与量子计算的核心基础。",
+      "nodes": null,
+      "edges": null,
+      "steps": null
+    }
+  ]
+}

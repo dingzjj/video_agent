@@ -1,0 +1,7 @@
+{
+  "extends": "@remotion/cli/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "strict": true
+  }
+}

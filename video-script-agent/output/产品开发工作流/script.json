@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "title": "你以为产品经理就是写需求文档？",
+    "challenge": "让想转行做产品经理但零基础的人，搞清楚产品开发的完整工作流是什么、PM 到底在做什么",
+    "duration": 60,
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "sceneCount": 8
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "timeRange": "0-7",
+      "startFrame": 0,
+      "durationInFrames": 210,
+      "type": "hook",
+      "visual": {
+        "type": "text-overlay",
+        "content": "你以为产品经理\n就是写需求文档？",
+        "background": "赛博深色",
+        "animation": "文字从下方弹入，带冲击感"
+      },
+      "subtitle": "你以为 PM 就是写需求文档？",
+      "voiceover": "你以为产品经理每天就是坐在那里写需求文档？其实他们 80% 的时间在做另一件事。"
+    },
+    {
+      "id": 2,
+      "timeRange": "7-15",
+      "startFrame": 210,
+      "durationInFrames": 240,
+      "type": "content",
+      "visual": {
+        "type": "diagram",
+        "content": "左边：用户说「我想要一匹更快的马」\n右边箭头→ PM 翻译：「用户需要更快到达目的地」",
+        "background": "高亮强调",
+        "animation": "左右两侧依次出现，箭头闪烁"
+      },
+      "subtitle": "PM = 用户与产品之间的翻译官",
+      "voiceover": "产品经理最核心的工作，是当翻译官。用户说「我想要一匹更快的马」，PM 要听懂背后的意思——他其实需要更快到达目的地，所以答案可能是汽车，不是马。"
+    },
+    {
+      "id": 3,
+      "timeRange": "15-23",
+      "startFrame": 450,
+      "durationInFrames": 240,
+      "type": "content",
+      "visual": {
+        "type": "diagram",
+        "content": "五个方框从左到右：\n① 发现问题 → ② 定义需求 → ③ 设计方案 → ④ 开发上线 → ⑤ 迭代优化",
+        "background": "清爽对比",
+        "animation": "五个方框依次从左到右出现，每出现一个高亮一次"
+      },
+      "subtitle": "产品开发 5 步工作流",
+      "voiceover": "产品开发有一套固定工作流：第一步发现问题，第二步定义需求，第三步设计方案，第四步开发上线，第五步迭代优化。PM 贯穿全程。"
+    },
+    {
+      "id": 4,
+      "timeRange": "23-31",
+      "startFrame": 690,
+      "durationInFrames": 240,
+      "type": "content",
+      "visual": {
+        "type": "split-screen",
+        "content": "左边：外卖 App 界面，「预计送达 25 分钟」高亮\n右边：四个团队图标——算法、设计、前端、后端，PM 居中连接四者",
+        "background": "暖调复古",
+        "animation": "右边四个图标依次亮起，PM 节点最后出现并连线"
+      },
+      "subtitle": "一个小功能 = 协调 4 个团队",
+      "voiceover": "举个例子，你每天用的外卖 App 上「预计送达时间」这个小功能——背后 PM 需要协调算法团队、设计团队、前端和后端四个团队，缺一不可。"
+    },
+    {
+      "id": 5,
+      "timeRange": "31-39",
+      "startFrame": 930,
+      "durationInFrames": 240,
+      "type": "content",
+      "visual": {
+        "type": "text-overlay",
+        "content": "PM 像餐厅经理\n不需要会炒菜\n但要知道客人想吃什么",
+        "background": "极简留白",
+        "animation": "三行文字逐行出现，最后一行加粗高亮"
+      },
+      "subtitle": "PM 不需要会写代码",
+      "voiceover": "很多人担心——不会写代码能做 PM 吗？当然可以。PM 就像餐厅经理，不需要会炒菜，但要知道客人想吃什么、协调厨师和服务员把菜端上桌。"
+    },
+    {
+      "id": 6,
+      "timeRange": "39-47",
+      "startFrame": 1170,
+      "durationInFrames": 240,
+      "type": "content",
+      "visual": {
+        "type": "highlight",
+        "content": "微信「拍一拍」\n用户调研发现：\n大家需要「无压力打招呼」的方式",
+        "background": "高亮强调",
+        "animation": "用户调研 → 洞察 → 功能，三步箭头动画"
+      },
+      "subtitle": "好产品来自真实用户洞察",
+      "voiceover": "微信的「拍一拍」功能你用过吗？它来自用户调研——大家想要一种无压力打招呼的方式，既不用发消息，又能让对方注意到你。这就是 PM 发现问题的能力。"
+    },
+    {
+      "id": 7,
+      "timeRange": "47-55",
+      "startFrame": 1410,
+      "durationInFrames": 240,
+      "type": "content",
+      "visual": {
+        "type": "diagram",
+        "content": "核心技能排行榜：\n🥇 判断优先级\n🥈 用户洞察\n🥉 沟通协作\n（需求文档排在第 6 位）",
+        "background": "清爽对比",
+        "animation": "从第一名到第三名依次出现，最后一行小字淡入"
+      },
+      "subtitle": "PM 核心技能 ≠ 写文档",
+      "voiceover": "PM 最重要的技能其实是判断优先级——100 个需求只能做 10 个，选哪些？其次是用户洞察和跨团队沟通。写需求文档，只排第六。"
+    },
+    {
+      "id": 8,
+      "timeRange": "55-60",
+      "startFrame": 1650,
+      "durationInFrames": 150,
+      "type": "payoff",
+      "visual": {
+        "type": "text-overlay",
+        "content": "PM 不是写文档的人\n是把「用户痛点」\n变成「产品现实」的人",
+        "background": "赛博深色",
+        "animation": "三行文字依次出现，最后全屏高亮定格"
+      },
+      "subtitle": "PM = 把痛点变成现实的人",
+      "voiceover": "记住这句话：产品经理不是写文档的人，是把用户痛点变成产品现实的人。如果你对这件事感兴趣，你已经有做 PM 最重要的素质了。"
+    }
+  ]
+}
