@@ -24,8 +24,6 @@ Every run is tracked as a task under workspace/tasks/.
   python main.py script --task task_20260328_100000 "新概念"  # use specific task slot
 
 ── Options ──────────────────────────────────────────────────────────────
-  --max-iterations N    max generate→review cycles (default: 3)
-  --no-review           skip review agent
   --skip-voiceover      all pipeline without voiceover
   --no-audio            render silent video even if audio exists
 """
@@ -57,12 +55,6 @@ def _add_suggestion_arg(p: argparse.ArgumentParser) -> None:
     p.add_argument("--suggestion", default=None, metavar="TEXT",
                    help="Refine this stage using the given suggestion")
 
-def _add_review_args(p: argparse.ArgumentParser) -> None:
-    p.add_argument("--max-iterations", type=int, default=3, metavar="N",
-                   help="Max generate→review cycles (default: 3)")
-    p.add_argument("--no-review", action="store_true",
-                   help="Skip review; generate exactly once")
-
 
 # ── Parser ────────────────────────────────────────────────────────────────────
 
@@ -81,7 +73,7 @@ def _build_parser() -> argparse.ArgumentParser:
     sp = sub.add_parser("script", help="Generate/refine storyboard")
     sp.add_argument("concept", nargs="?", default=None,
                     help="Topic (required for new task; optional when --suggestion is used)")
-    _add_task_arg(sp); _add_suggestion_arg(sp); _add_review_args(sp)
+    _add_task_arg(sp); _add_suggestion_arg(sp)
 
     # voiceover
     vop = sub.add_parser("voiceover", help="Generate/refine voiceover audio")
@@ -89,7 +81,7 @@ def _build_parser() -> argparse.ArgumentParser:
 
     # video
     vp = sub.add_parser("video", help="Render video (auto-mixes voiceover if available)")
-    _add_task_arg(vp); _add_suggestion_arg(vp); _add_review_args(vp)
+    _add_task_arg(vp); _add_suggestion_arg(vp)
     vp.add_argument("--no-audio", action="store_true",
                     help="Render silent video even if voiceover audio exists")
 
@@ -97,7 +89,7 @@ def _build_parser() -> argparse.ArgumentParser:
     ap = sub.add_parser("all", help="Run full pipeline: script → voiceover → video")
     ap.add_argument("concept", nargs="?", default=None,
                     help="Topic (required for new task; optional when --suggestion is used)")
-    _add_task_arg(ap); _add_suggestion_arg(ap); _add_review_args(ap)
+    _add_task_arg(ap); _add_suggestion_arg(ap)
     ap.add_argument("--skip-voiceover", action="store_true",
                     help="Skip voiceover; render silent video")
     ap.add_argument("--no-audio", action="store_true",
@@ -181,16 +173,10 @@ def _cmd_script(args) -> None:
     result = ScriptAgent().run(
         task=task,
         suggestion=suggestion,
-        max_iterations=args.max_iterations,
-        no_review=args.no_review,
     )
 
     _print_done("SCRIPT", task)
-    _print_history(result["history"])
-    icon = "✅" if result["approved"] else "⚠️ "
-    print(f"\n  Status : {icon} {'Approved' if result['approved'] else 'Best available'}"
-          f" ({result['iterations']} iteration(s))")
-    print(f"  Output : {result['storyboard_path']}\n")
+    print(f"\n  Output : {result['storyboard_path']}\n")
 
 
 def _cmd_voiceover(args) -> None:
@@ -232,9 +218,7 @@ def _cmd_video(args) -> None:
     if suggestion:
         print("\n📝  Refining script...")
         print("─" * 60)
-        ScriptAgent().run(task=task, suggestion=suggestion,
-                          max_iterations=args.max_iterations,
-                          no_review=args.no_review)
+        ScriptAgent().run(task=task, suggestion=suggestion)
         print("\n🎙️  Regenerating voiceover...")
         print("─" * 60)
         VoiceoverAgent().run(task=task)
@@ -270,8 +254,6 @@ def _cmd_all(args) -> None:
     script_result = ScriptAgent().run(
         task=task,
         suggestion=suggestion,
-        max_iterations=args.max_iterations,
-        no_review=args.no_review,
     )
 
     # ── 2. Voiceover ───────────────────────────────────────────────────────

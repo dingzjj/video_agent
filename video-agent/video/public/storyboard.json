@@ -1,5 +1,5 @@
 {
-  "title": "量子计算入门：从0到1",
+  "title": "深度学习原理入门",
   "total_duration_seconds": 57.0,
   "fps": 30,
   "resolution": {
@@ -7,7 +7,7 @@
     "height": 1080
   },
   "theme": {
-    "primary_color": "#4ECDC4",
+    "primary_color": "#4E6CFF",
     "accent_color": "#A855F7",
     "background_color": "#0A0F1E",
     "font_family": "Inter",
@@ -19,10 +19,10 @@
       "type": "title",
       "duration_seconds": 4.0,
       "animation": "fade_zoom_in",
-      "image_query": "quantum computer laboratory",
-      "asset_path": "assets/scene_0_quantum_computer_laboratory.jpg",
-      "title": "量子计算入门",
-      "subtitle": "如果计算不再只是0和1，会发生什么？",
+      "image_query": "artificial neural network visualization",
+      "asset_path": "assets/scene_0_artificial_neural_network_visu.jpg",
+      "title": "深度学习原理",
+      "subtitle": "机器是如何像人一样“学习”和“理解”的？",
       "heading": null,
       "body": null,
       "bullets": null,
@@ -41,12 +41,12 @@
       "asset_path": null,
       "title": null,
       "subtitle": null,
-      "heading": "量子计算是什么？",
+      "heading": "什么是深度学习？",
       "body": null,
       "bullets": [
-        "利用量子力学原理进行计算，而非传统电子开关",
-        "基本单位是量子比特，可同时表示多种状态",
-        "目标是解决经典计算极慢的问题"
+        "深度学习是机器学习的一种，用多层神经网络自动学习特征",
+        "模型通过大量数据训练，而不是人工写规则",
+        "层数越深，能表达的模式通常越复杂"
       ],
       "caption": null,
       "message": null,
@@ -59,12 +59,12 @@
       "type": "split",
       "duration_seconds": 10.0,
       "animation": "slide_in_from_left",
-      "image_query": "coin spinning in air",
-      "asset_path": "assets/scene_2_coin_spinning_in_air.jpg",
+      "image_query": "human brain neurons illustration",
+      "asset_path": "assets/scene_2_human_brain_neurons_illustrati.jpg",
       "title": null,
       "subtitle": null,
-      "heading": "量子比特的直觉理解",
-      "body": "传统比特像桌上的硬币，只能是正面或反面。量子比特更像空中旋转的硬币，同时包含多种可能。只有当你看它时，状态才会确定，这让并行计算成为可能。",
+      "heading": "核心思想：神经网络",
+      "body": "深度学习模仿人脑的工作方式，由许多“神经元”连接而成。就像学生通过反复做题总结规律，神经网络也通过数据不断调整自己。每一层负责理解信息的一个层次。",
       "bullets": null,
       "caption": null,
       "message": null,
@@ -81,7 +81,7 @@
       "asset_path": null,
       "title": null,
       "subtitle": null,
-      "heading": "量子计算的核心关系",
+      "heading": "神经网络的基本结构",
       "body": null,
       "bullets": null,
       "caption": null,
@@ -89,19 +89,19 @@
       "nodes": [
         {
           "id": "a",
-          "label": "量子比特",
+          "label": "输入层：原始数据",
           "x": 0.15,
           "y": 0.5
         },
         {
           "id": "b",
-          "label": "量子叠加与纠缠",
+          "label": "隐藏层：特征提取",
           "x": 0.5,
           "y": 0.3
         },
         {
           "id": "c",
-          "label": "指数级计算能力",
+          "label": "输出层：预测结果",
           "x": 0.85,
           "y": 0.5
         }
@@ -110,36 +110,18 @@
         {
           "from": "a",
           "to": "b",
-          "label": "产生"
+          "label": "加权传递"
         },
         {
           "from": "b",
           "to": "c",
-          "label": "带来"
+          "label": "综合判断"
         }
       ],
       "steps": null
     },
     {
       "id": "scene_4",
-      "type": "image",
-      "duration_seconds": 5.0,
-      "animation": "ken_burns",
-      "image_query": "quantum entanglement visualization",
-      "asset_path": "assets/scene_4_quantum_entanglement_visualiza.jpg",
-      "title": null,
-      "subtitle": null,
-      "heading": null,
-      "body": null,
-      "bullets": null,
-      "caption": "纠缠的量子比特即使相隔很远，也能表现出强关联。",
-      "message": null,
-      "nodes": null,
-      "edges": null,
-      "steps": null
-    },
-    {
-      "id": "scene_5",
       "type": "step",
       "duration_seconds": 12.0,
       "animation": "slide_in_steps",
@@ -147,7 +129,7 @@
       "asset_path": null,
       "title": null,
       "subtitle": null,
-      "heading": "量子计算如何运行",
+      "heading": "深度学习如何训练",
       "body": null,
       "bullets": null,
       "caption": null,
@@ -157,20 +139,38 @@
       "steps": [
         {
           "number": 1,
-          "title": "初始化",
-          "description": "将量子比特准备到已知的起始状态，作为计算起点。"
+          "title": "前向计算",
+          "description": "数据从输入层进入网络，逐层计算，得到一个预测结果。"
         },
         {
           "number": 2,
-          "title": "量子操作",
-          "description": "通过量子门操控叠加和纠缠，同时处理大量可能性。"
+          "title": "计算误差",
+          "description": "将预测结果与真实答案比较，得到当前模型的错误大小。"
         },
         {
           "number": 3,
-          "title": "测量输出",
-          "description": "测量会坍缩状态，得到最终的经典计算结果。"
+          "title": "反向传播",
+          "description": "根据误差反向调整参数，让下次预测更接近正确答案。"
         }
       ]
+    },
+    {
+      "id": "scene_5",
+      "type": "image",
+      "duration_seconds": 5.0,
+      "animation": "ken_burns",
+      "image_query": "self driving car AI system",
+      "asset_path": "assets/scene_5_self_driving_car_ai_system.jpg",
+      "title": null,
+      "subtitle": null,
+      "heading": null,
+      "body": null,
+      "bullets": null,
+      "caption": "从自动驾驶到语音识别，深度学习已走进日常生活",
+      "message": null,
+      "nodes": null,
+      "edges": null,
+      "steps": null
     },
     {
       "id": "scene_6",
@@ -185,7 +185,7 @@
       "body": null,
       "bullets": null,
       "caption": null,
-      "message": "量子计算不是更快的电脑，而是全新的计算方式。它可能重塑药物研发、密码学与材料科学。",
+      "message": "深度学习的本质，是让机器从数据中不断改进自己。未来，它还能在哪些领域改变我们的生活？",
       "nodes": null,
       "edges": null,
       "steps": null

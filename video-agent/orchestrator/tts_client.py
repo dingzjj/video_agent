@@ -1,56 +1,72 @@
-"""TTS synthesis via edge-tts (Microsoft Edge TTS — no API key required).
+"""TTS synthesis via ElevenLabs API.
 
-Install:  pip install edge-tts
-Voices:   https://speech.microsoft.com/portal/voicegallery
+Install:  pip install elevenlabs
+Voices:   https://elevenlabs.io/app/voice-library
+Docs:     https://elevenlabs.io/docs/eleven-api/guides/cookbooks/text-to-speech
+
+Set ELEVENLABS_API_KEY in .env.
+Optionally set ELEVENLABS_VOICE_ID to override the default voice.
 """
 
 from __future__ import annotations
-import asyncio
+import os
 import subprocess
 from pathlib import Path
 
-VOICE_MAP: dict[str, str] = {
-    "zh":    "zh-CN-XiaoxiaoNeural",
-    "zh-CN": "zh-CN-XiaoxiaoNeural",
-    "zh-TW": "zh-TW-HsiaoChenNeural",
-    "en":    "en-US-JennyNeural",
-    "en-US": "en-US-JennyNeural",
-    "ja":    "ja-JP-NanamiNeural",
-}
-DEFAULT_VOICE = "zh-CN-XiaoxiaoNeural"
+# eleven_multilingual_v2 auto-detects language (zh, en, ja, etc.)
+MODEL_ID = "eleven_multilingual_v2"
+OUTPUT_FORMAT = "mp3_44100_128"
+
+# Default voice: "Rachel" — works well for both Chinese and English.
+# Override via ELEVENLABS_VOICE_ID env var, or browse voices at:
+# https://elevenlabs.io/app/voice-library
+DEFAULT_VOICE_ID = os.environ.get(
+    "ELEVENLABS_VOICE_ID", "21m00Tcm4TlvDq8ikWAM"
+)
 
 
 def is_available() -> bool:
+    """Return True if the elevenlabs SDK and API key are present."""
     try:
-        import edge_tts  # noqa: F401
-        return True
+        import elevenlabs  # noqa: F401
     except ImportError:
         return False
+    return bool(os.environ.get("ELEVENLABS_API_KEY"))
 
 
 def synthesize_scene(text: str, output_path: Path, language: str = "zh-CN") -> bool:
-    """Synthesize one scene's narration text to an MP3 file.
+    """Synthesize one scene's narration text to an MP3 file via ElevenLabs.
+
+    `language` is accepted for API compatibility but not passed to ElevenLabs —
+    eleven_multilingual_v2 detects the language automatically from the text.
 
     Returns True on success, False on failure (prints reason).
     """
     if not is_available():
-        print("  [TTS] edge-tts not installed — run: pip install edge-tts")
+        if not os.environ.get("ELEVENLABS_API_KEY"):
+            print("  [TTS] ELEVENLABS_API_KEY not set — add it to .env")
+        else:
+            print("  [TTS] elevenlabs SDK not installed — run: pip install elevenlabs")
         return False
 
-    import edge_tts
+    from elevenlabs.client import ElevenLabs
 
-    voice = VOICE_MAP.get(language, DEFAULT_VOICE)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    async def _run() -> None:
-        communicate = edge_tts.Communicate(text, voice)
-        await communicate.save(str(output_path))
+    client = ElevenLabs(api_key=os.environ.get("ELEVENLABS_API_KEY"))
 
     try:
-        asyncio.run(_run())
+        audio = client.text_to_speech.convert(
+            voice_id=DEFAULT_VOICE_ID,
+            text=text,
+            model_id=MODEL_ID,
+            output_format=OUTPUT_FORMAT,
+        )
+        with output_path.open("wb") as f:
+            for chunk in audio:
+                f.write(chunk)
         return True
     except Exception as exc:
-        print(f"  [TTS] Synthesis failed for scene: {exc}")
+        print(f"  [TTS] ElevenLabs synthesis failed: {exc}")
         return False
 
 

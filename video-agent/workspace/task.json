@@ -1,5 +1,5 @@
 {
-  "current": "task_20260328_222753",
+  "current": "task_20260328_224115",
   "tasks": {
     "task_20260328_222753": {
       "id": "task_20260328_222753",
@@ -24,6 +24,25 @@
           "status": "completed",
           "completed_at": "2026-03-28T22:30:29",
           "audio_merged": true
+        }
+      }
+    },
+    "task_20260328_224115": {
+      "id": "task_20260328_224115",
+      "concept": "深度学习原理",
+      "created_at": "2026-03-28T22:41:15",
+      "updated_at": "2026-03-28T22:41:31",
+      "stages": {
+        "script": {
+          "status": "completed",
+          "completed_at": "2026-03-28T22:41:31",
+          "scenes": 7
+        },
+        "voiceover": {
+          "status": "pending"
+        },
+        "video": {
+          "status": "pending"
         }
       }
     }

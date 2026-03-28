@@ -1,4 +1,4 @@
-"""LLM client — storyboard generation and review via Azure OpenAI."""
+"""LLM client — storyboard generation and voiceover via Azure OpenAI."""
 
 from __future__ import annotations
 import json
@@ -8,11 +8,10 @@ from typing import Optional
 
 from openai import AzureOpenAI
 
-from .schemas import Storyboard, StoryboardReview, VoiceoverScript
+from .schemas import Storyboard, VoiceoverScript
 
 _PROMPTS = Path(__file__).parent / "prompts"
 _STORYBOARD_SYSTEM = (_PROMPTS / "storyboard_prompt.txt").read_text(encoding="utf-8")
-_REVIEW_SYSTEM     = (_PROMPTS / "review_prompt.txt").read_text(encoding="utf-8")
 _VOICEOVER_SYSTEM  = (_PROMPTS / "voiceover_prompt.txt").read_text(encoding="utf-8")
 
 # Azure OpenAI config (read from env; fallback to empty string)
@@ -50,19 +49,16 @@ def _chat_json(system: str, messages: list[dict]) -> dict:
 
 def generate_storyboard(
     concept: str,
-    revision_instructions: Optional[str] = None,
     suggestion: Optional[str] = None,
     existing_storyboard: Optional["Storyboard"] = None,
 ) -> Storyboard:
-    """Generate (or revise) a storyboard for the given concept.
+    """Generate (or refine) a storyboard for the given concept.
 
-    When ``suggestion`` + ``existing_storyboard`` are provided, the LLM receives
-    the current storyboard as context and refines it according to the user's
-    suggestion rather than starting from scratch.
+    When ``suggestion`` + ``existing_storyboard`` are provided the LLM receives
+    the current storyboard as context and refines it, rather than starting fresh.
     """
     print(f"  [LLM] Generating storyboard [{AZURE_DEPLOYMENT}]...", flush=True)
 
-    # ── Suggestion mode: refine existing storyboard ───────────────────────────
     if suggestion and existing_storyboard:
         existing_json = json.dumps(
             json.loads(existing_storyboard.model_dump_json(by_alias=True)),
@@ -70,37 +66,20 @@ def generate_storyboard(
             indent=2,
         )
         messages: list[dict] = [
-            {"role": "user", "content": concept},
+            {"role": "user",      "content": concept},
             {"role": "assistant", "content": existing_json},
             {
                 "role": "user",
                 "content": (
                     "USER SUGGESTION — please refine the storyboard above:\n\n"
                     + suggestion
-                    + "\n\n"
-                    "Rules:\n"
-                    "- Keep everything that already works well.\n"
-                    "- Only change what the suggestion explicitly addresses.\n"
-                    "- Return a new, complete storyboard JSON — not a summary or explanation."
+                    + "\n\nKeep everything that works well. "
+                    "Return a new, complete storyboard JSON — not a summary or explanation."
                 ),
             },
         ]
-        data = _chat_json(_STORYBOARD_SYSTEM, messages)
-        return Storyboard.model_validate(data)
-
-    # ── Normal generation / auto-review revision ──────────────────────────────
-    messages = [{"role": "user", "content": concept}]
-
-    if revision_instructions:
-        messages.append({
-            "role": "user",
-            "content": (
-                "REVISION REQUIRED — the previous storyboard was reviewed and rejected.\n\n"
-                "Apply ALL of the following instructions to produce an improved storyboard:\n\n"
-                + revision_instructions
-                + "\n\nYour response must be a new, complete storyboard JSON — not a summary or explanation."
-            ),
-        })
+    else:
+        messages = [{"role": "user", "content": concept}]
 
     data = _chat_json(_STORYBOARD_SYSTEM, messages)
     return Storyboard.model_validate(data)
@@ -156,18 +135,3 @@ def refine_voiceover_script(
     data = _chat_json(_VOICEOVER_SYSTEM, messages)
     return VoiceoverScript.model_validate(data)
 
-
-# ── Storyboard review ─────────────────────────────────────────────────────────
-
-def review_storyboard(storyboard: Storyboard) -> StoryboardReview:
-    """Review a storyboard for educational quality. Returns structured review."""
-    print(f"  [LLM] Reviewing storyboard [{AZURE_DEPLOYMENT}]...", flush=True)
-
-    storyboard_json = json.dumps(
-        json.loads(storyboard.model_dump_json(by_alias=True)),
-        ensure_ascii=False,
-        indent=2,
-    )
-    messages = [{"role": "user", "content": storyboard_json}]
-    data = _chat_json(_REVIEW_SYSTEM, messages)
-    return StoryboardReview.model_validate(data)

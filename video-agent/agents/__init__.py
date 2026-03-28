@@ -1,5 +1,5 @@
-from .generation_agent import VideoGenerationAgent
-from .review_agent import VideoReviewAgent
-from .orchestrator import OrchestratorAgent
+from .script_agent import ScriptAgent
+from .voiceover_agent import VoiceoverAgent
+from .video_render_agent import VideoRenderAgent
 
-__all__ = ["VideoGenerationAgent", "VideoReviewAgent", "OrchestratorAgent"]
+__all__ = ["ScriptAgent", "VoiceoverAgent", "VideoRenderAgent"]
