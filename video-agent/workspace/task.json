@@ -1,5 +1,5 @@
 {
-  "current": "task_20260328_224115",
+  "current": "task_20260328_231323",
   "tasks": {
     "task_20260328_222753": {
       "id": "task_20260328_222753",
@@ -43,6 +43,27 @@
         },
         "video": {
           "status": "pending"
+        }
+      }
+    },
+    "task_20260328_231323": {
+      "id": "task_20260328_231323",
+      "concept": "大脑神经可塑性：学习如何改变大脑结构",
+      "created_at": "2026-03-28T23:13:23",
+      "updated_at": "2026-03-28T23:16:09",
+      "stages": {
+        "script": {
+          "status": "completed",
+          "completed_at": "2026-03-28T23:13:39",
+          "scenes": 7
+        },
+        "voiceover": {
+          "status": "pending"
+        },
+        "video": {
+          "status": "completed",
+          "completed_at": "2026-03-28T23:16:09",
+          "audio_merged": false
         }
       }
     }

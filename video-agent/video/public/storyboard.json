@@ -1,5 +1,5 @@
 {
-  "title": "深度学习原理入门",
+  "title": "大脑神经可塑性：学习如何改变大脑结构",
   "total_duration_seconds": 57.0,
   "fps": 30,
   "resolution": {
@@ -7,8 +7,8 @@
     "height": 1080
   },
   "theme": {
-    "primary_color": "#4E6CFF",
-    "accent_color": "#A855F7",
+    "primary_color": "#4ECDC4",
+    "accent_color": "#FF6B35",
     "background_color": "#0A0F1E",
     "font_family": "Inter",
     "text_color": "#FFFFFF"
@@ -19,10 +19,10 @@
       "type": "title",
       "duration_seconds": 4.0,
       "animation": "fade_zoom_in",
-      "image_query": "artificial neural network visualization",
-      "asset_path": "assets/scene_0_artificial_neural_network_visu.jpg",
-      "title": "深度学习原理",
-      "subtitle": "机器是如何像人一样“学习”和“理解”的？",
+      "image_query": "human brain neural connections glowing",
+      "asset_path": "assets/scene_0_human_brain_neural_connections.jpg",
+      "title": "大脑神经可塑性",
+      "subtitle": "学习真的能改变大脑的“硬件”吗？",
       "heading": null,
       "body": null,
       "bullets": null,
@@ -41,12 +41,12 @@
       "asset_path": null,
       "title": null,
       "subtitle": null,
-      "heading": "什么是深度学习？",
+      "heading": "什么是神经可塑性",
       "body": null,
       "bullets": [
-        "深度学习是机器学习的一种，用多层神经网络自动学习特征",
-        "模型通过大量数据训练，而不是人工写规则",
-        "层数越深，能表达的模式通常越复杂"
+        "大脑会根据经验改变神经连接，而不是固定不变",
+        "学习、练习和环境都会重塑神经网络",
+        "从婴儿到成年人，大脑始终保留改变能力"
       ],
       "caption": null,
       "message": null,
@@ -59,12 +59,12 @@
       "type": "split",
       "duration_seconds": 10.0,
       "animation": "slide_in_from_left",
-      "image_query": "human brain neurons illustration",
-      "asset_path": "assets/scene_2_human_brain_neurons_illustrati.jpg",
+      "image_query": "city roads expanding over time illustration",
+      "asset_path": "assets/scene_2_city_roads_expanding_over_time.jpg",
       "title": null,
       "subtitle": null,
-      "heading": "核心思想：神经网络",
-      "body": "深度学习模仿人脑的工作方式，由许多“神经元”连接而成。就像学生通过反复做题总结规律，神经网络也通过数据不断调整自己。每一层负责理解信息的一个层次。",
+      "heading": "一个直观的比喻",
+      "body": "把大脑想成一座城市，神经元是街道。常走的路会被拓宽，少走的路会变窄。学习就像反复通勤，让某些路线越来越高效。",
       "bullets": null,
       "caption": null,
       "message": null,
@@ -81,7 +81,7 @@
       "asset_path": null,
       "title": null,
       "subtitle": null,
-      "heading": "神经网络的基本结构",
+      "heading": "学习如何改变大脑",
       "body": null,
       "bullets": null,
       "caption": null,
@@ -89,19 +89,19 @@
       "nodes": [
         {
           "id": "a",
-          "label": "输入层：原始数据",
+          "label": "新的学习体验",
           "x": 0.15,
           "y": 0.5
         },
         {
           "id": "b",
-          "label": "隐藏层：特征提取",
+          "label": "神经连接变化",
           "x": 0.5,
           "y": 0.3
         },
         {
           "id": "c",
-          "label": "输出层：预测结果",
+          "label": "能力与行为提升",
           "x": 0.85,
           "y": 0.5
         }
@@ -110,12 +110,12 @@
         {
           "from": "a",
           "to": "b",
-          "label": "加权传递"
+          "label": "触发"
         },
         {
           "from": "b",
           "to": "c",
-          "label": "综合判断"
+          "label": "支持"
         }
       ],
       "steps": null
@@ -129,7 +129,7 @@
       "asset_path": null,
       "title": null,
       "subtitle": null,
-      "heading": "深度学习如何训练",
+      "heading": "神经可塑性的运作步骤",
       "body": null,
       "bullets": null,
       "caption": null,
@@ -139,18 +139,18 @@
       "steps": [
         {
           "number": 1,
-          "title": "前向计算",
-          "description": "数据从输入层进入网络，逐层计算，得到一个预测结果。"
+          "title": "重复刺激",
+          "description": "反复练习会同时激活特定神经元，为连接变化创造条件。"
         },
         {
           "number": 2,
-          "title": "计算误差",
-          "description": "将预测结果与真实答案比较，得到当前模型的错误大小。"
+          "title": "连接强化",
+          "description": "常用的神经连接变得更强、更快，传递信号更高效。"
         },
         {
           "number": 3,
-          "title": "反向传播",
-          "description": "根据误差反向调整参数，让下次预测更接近正确答案。"
+          "title": "结构重组",
+          "description": "新的连接形成，旧的弱连接可能被削减。"
         }
       ]
     },
@@ -159,14 +159,14 @@
       "type": "image",
       "duration_seconds": 5.0,
       "animation": "ken_burns",
-      "image_query": "self driving car AI system",
-      "asset_path": "assets/scene_5_self_driving_car_ai_system.jpg",
+      "image_query": "musician brain scan comparison before after training",
+      "asset_path": "assets/scene_5_musician_brain_scan_comparison.jpg",
       "title": null,
       "subtitle": null,
       "heading": null,
       "body": null,
       "bullets": null,
-      "caption": "从自动驾驶到语音识别，深度学习已走进日常生活",
+      "caption": "研究发现，长期练习乐器的人，大脑相关区域会明显增大。",
       "message": null,
       "nodes": null,
       "edges": null,
@@ -185,7 +185,7 @@
       "body": null,
       "bullets": null,
       "caption": null,
-      "message": "深度学习的本质，是让机器从数据中不断改进自己。未来，它还能在哪些领域改变我们的生活？",
+      "message": "你的每一次学习，都在重塑大脑本身。今天选择练习什么，就在决定明天的大脑长什么样。",
       "nodes": null,
       "edges": null,
       "steps": null
