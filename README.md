@@ -1,5 +1,7 @@
 # IdeaMotion - Remotion 视频创作知识库
 
+![IdeaMotion](readme.png)
+
 AI 驱动的视频创作框架，基于 Remotion（React 视频合成库），为 Claude 等 AI Agent 提供完整的视频脚本编写与代码生成规则体系。
 
 ## 项目简介
